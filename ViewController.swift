@@ -19,8 +19,51 @@ class ViewController: UIViewController
     {
         super.viewDidLoad()
         
+        print("#Current adress of the file: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+        
+        let storer = CDManipulator()
+        
+        
         
         print("#Current adress of the file: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+        
+        let s = "hellohellohellohellohellohellohellohellohellohellohellohellohell"
+        var key = Data(count: 64)
+        key = s.data(using: String.Encoding.utf8)!
+        
+        let encryptionConfig = Realm.Configuration(encryptionKey: key)
+        
+        
+        
+        
+        // Attempt to open the encrypted Realm
+        do {
+            let realm = try Realm(configuration: encryptionConfig)
+            // At this point, the key was accepted and we can use the Realm as normal
+            
+//            try! realm.write()
+//            {
+//                let newCard = Card()
+//                newCard.name = "heeeeeeey"
+//                newCard.text = "encryption"
+//                
+//                realm.add(newCard)
+//            }
+            
+            let cards = realm.objects(Card.self)
+            
+            print("Number of cards: ", cards.count)
+            
+            for card in cards
+            {
+             print("card: ",card)
+            }
+        }catch let error as NSError
+        {
+            fatalError("Error \(error)")
+        }
+        
+        
         
         //***UNCOMENT for debugging the storer:
         
@@ -29,8 +72,7 @@ class ViewController: UIViewController
 //        //        var keyy = Data(count: 64)
 //        //        keyy = s.data(using: String.Encoding.utf8)!
 //        //        print("\n The encryption key is: #\(keyy)#\n")
-//        
-//        let storer = CDManipulator()
+//
 //        let data = storer.getKey()
 //        
 //        
@@ -42,11 +84,14 @@ class ViewController: UIViewController
 //            print("\nThey are equal! You are a genius!\n")
 //        }
 //        
-//        //print("@@@Key: ",storer.fetch())
+        //print("@@@Key: ",storer.fetch())
+        //write("privet", "odin text!")
         
-        write("hello", "a text!")
-        displayAllObjects()
         
+        
+        //displayL()
+        
+
 //         let adress1 = "\(Realm.Configuration.defaultConfiguration.fileURL!)"
 //         print("initial adress: ", adress1)
 //         
@@ -56,52 +101,79 @@ class ViewController: UIViewController
 //         key = s.data(using: String.Encoding.utf8)!
 //         print("\n The encryption key is: #\(key)#\n")
 //         
-         //save key in storer:
-//         let storer = CDManipulator()
+//         //save key in storer:
 //         storer.setKey(key)
 //
 //         //choose the adress path of the file:
-//         let onHDD = URL(string: "///Users/alexinntekt/Library/Developer/CoreSimulator/Devices/93139118-C1BF-4394-824F-A6942DE1A031/data/Containers/Data/Application/7BC4645E-1ED0-4763-8690-E9697F503323/Documents/lop.realm")
+//         let onHDD = URL(string: "/Users/alexinntekt/Desktop/pol.realm")
 //         
 //         //make a copy of the un-encrypted database to an encripted version:
 //         do
 //         {
 //         try Realm().writeCopy(toFile: onHDD!, encryptionKey: key)
 //         }
-//         catch {}
+//         catch let error as NSError
+//                             {
+//                               // If the encryption key was not accepted, the error will state that the database was invalid
+//                               fatalError("Error copying Realm: \(error)")
+//                             }
  
+    
         
         
+
+//                let keyy = storer.getKey()
+//        /*
+//                 print("File to be deleted: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+//                 do
+//                 {
+//                 try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+//                 }  catch {}
+//        */
+//                let onHDD = URL(string: "///Users/alexinntekt/Library/Developer/CoreSimulator/Devices/FC98C483-B8E0-4A20-9A7F-0C0E7FAFF570/data/Containers/Data/Application/2C21A652-0ABA-4684-9A84-6B972A952A90/Documents/default.realm")
+//        
+//                Realm.Configuration.defaultConfiguration.fileURL = onHDD
+//                print("±Current configuration adress file: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+//                var encryptionConfig = Realm.Configuration(encryptionKey: keyy)
+//                encryptionConfig = realm.configuration
+//                
+//        
+//                do{
+//                        print("Current configuration adress file: \(Realm.Configuration.defaultConfiguration.fileURL)")
+//                        let realm = try! Realm(configuration: encryptionConfig)
+//                        // At this point, the key was accepted and we can use the Realm as normal
+//                        let cards = realm.objects(Card.self)
+//                    
+//                       print("number of cards: ", cards.count)
+//                    
+//                       for card in cards
+//                       {
+//                          print("card: ",card)
+//                       }
+//                    
+//                   }catch let error as NSError
+//                     {
+//                       // If the encryption key was not accepted, the error will state that the database was invalid
+//                       fatalError("Error opening Realm: \(error)")
+//                     }
         
+        //displayL()
+
+      }
+    
+    func displayL()
+    {
+        print("\ncalling displayL():\n")
         
-        //        let storer = CDManipulator()
-        //        let keyy = storer.getKey()
+        let cards = realm.objects(Card.self)
         
-        //         print("File to be deleted: \(Realm.Configuration.defaultConfiguration.fileURL!)")
-        //
-        //         do
-        //         {
-        //         try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
-        //         }  catch {}
-        //
-        //        let onHDD = URL(string: "///Users/alexinntekt/Desktop/lop.realm")
-        //
-        //        Realm.Configuration.defaultConfiguration.fileURL = onHDD
-        //        let encryptionConfig = Realm.Configuration(encryptionKey: keyy)
-        //
-        //        do
-        //            {
-        //                let realm = try Realm(configuration: encryptionConfig)
-        //                // At this point, the key was accepted and we can use the Realm as normal
-        //                let cards = realm.objects(Card.self)
-        //           }catch let error as NSError {
-        //            // If the encryption key was not accepted, the error will state that the database was invalid
-        //            fatalError("Error opening Realm: \(error)")
-        //        }
+        print("number of cards: ", cards.count)
         
+        for card in cards
+        {
+            print("card: ",card)
+        }
     }
-    
-    
     
     
 }

@@ -25,9 +25,9 @@ class Card: Object
 }
 
 //ACCESS MODIFIERS:
-func write()
+func write(_ name: String, _ text: String)
 {
-    try! realm.write(name: String, text: String)
+    try! realm.write()
     {
         let newCard = Card()
         newCard.name = name
