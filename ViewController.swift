@@ -22,29 +22,31 @@ class ViewController: UIViewController
         
         //***UNCOMENT for debugging the storer:
         
- //        //creating the key:
-//        let s = "hellohellohellohellohellohellohellohellohellohellohellohellohell"
-////        var keyy = Data(count: 64)
-////        keyy = s.data(using: String.Encoding.utf8)!
-////        print("\n The encryption key is: #\(keyy)#\n")
-//        
-//        let storer = CDManipulator()
-//        let data = storer.fetch()
-//
-//        let f = String(data: data, encoding: String.Encoding.utf8) as String!
-//
-//        if f==s
-//        {
-//            print("\nThey are equal! You are a genius!\n")
-//        }
-//
-//        //print("@@@Key: ",storer.fetch())
+         //creating the key:
+        let s = "hellohellohellohellohellohellohellohellohellohellohellohellohell"
+//        var keyy = Data(count: 64)
+//        keyy = s.data(using: String.Encoding.utf8)!
+//        print("\n The encryption key is: #\(keyy)#\n")
+        
+        let storer = CDManipulator()
+        let data = storer.getKey()
+        
+        
+
+        let f = String(data: data, encoding: String.Encoding.utf8) as String!
+
+        if f==s
+        {
+            print("\nThey are equal! You are a genius!\n")
+        }
+
+        //print("@@@Key: ",storer.fetch())
         
         
         displayAllObjects()
         /*
-        let a1 = "\(Realm.Configuration.defaultConfiguration.fileURL!)"
-        print("initial adress: ", a1)
+        let adress1 = "\(Realm.Configuration.defaultConfiguration.fileURL!)"
+        print("initial adress: ", adress1)
         
         //creating the key:
         let s = "hellohellohellohellohellohellohellohellohellohellohellohellohell"
@@ -52,11 +54,15 @@ class ViewController: UIViewController
         key = s.data(using: String.Encoding.utf8)!
         print("\n The encryption key is: #\(key)#\n")
         
+        //save key in storer:
+        let storer = CDManipulator()
+        storer.setKey(key)
+        
         //choose the adress path of the file:
         let onHDD = URL(string: "///Users/alexinntekt/Desktop/lop.realm")
         
 
-        //make a copy of the un-encrypted database:
+        //make a copy of the un-encrypted database to an encripted version:
         do
         {
             try Realm().writeCopy(toFile: onHDD!, encryptionKey: key)
@@ -65,19 +71,32 @@ class ViewController: UIViewController
         */
         
         
-        /*
-         print("File to be deleted: \(Realm.Configuration.defaultConfiguration.fileURL!)")
         
-         do
-         {
-         try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
-         }  catch {}
         
-        let onHDD = URL(string: "///Users/alexinntekt/Desktop/lop.realm")
+//        let storer = CDManipulator()
+//        let keyy = storer.getKey()
         
-        Realm.Configuration.defaultConfiguration.fileURL = onHDD
-        let encryptionConfig = Realm.Configuration(encryptionKey: key)
-        */
+//         print("File to be deleted: \(Realm.Configuration.defaultConfiguration.fileURL!)")
+//        
+//         do
+//         {
+//         try FileManager.default.removeItem(at: Realm.Configuration.defaultConfiguration.fileURL!)
+//         }  catch {}
+//        
+//        let onHDD = URL(string: "///Users/alexinntekt/Desktop/lop.realm")
+//        
+//        Realm.Configuration.defaultConfiguration.fileURL = onHDD
+//        let encryptionConfig = Realm.Configuration(encryptionKey: keyy)
+//        
+//        do
+//            {
+//                let realm = try Realm(configuration: encryptionConfig)
+//                // At this point, the key was accepted and we can use the Realm as normal
+//                let cards = realm.objects(Card.self)
+//           }catch let error as NSError {
+//            // If the encryption key was not accepted, the error will state that the database was invalid
+//            fatalError("Error opening Realm: \(error)")
+//        }
         
     }
 

@@ -19,6 +19,7 @@ class CDManipulator
     //MARK: Write
     func setKey(_ keyToStore: Data)
     {
+        print("\nCDManipulator message: setKey() being called\n")
         clean()
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -33,10 +34,12 @@ class CDManipulator
     //MARK: Fetching the last key stored
     func getKey() -> Data
     {
-      var returnedKey = StoredKey()
-      var fetchedKeys: [StoredKey] = []
-        
+      print("\nCDManipulator message: getKey() being called\n")
+       
       let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+      var fetchedKeys: [StoredKey] = []
+
+      var returnedKey = Data()
     
       do
        {
@@ -48,7 +51,7 @@ class CDManipulator
         
       for instance in fetchedKeys
         {
-          returnedKey = instance
+          returnedKey = instance.binaryData as! Data
         }
     
         print("The number of keys stored with CoreData is \(fetchedKeys.count)")
@@ -59,13 +62,14 @@ class CDManipulator
             
         }
         
-        return returnedKey.binaryData as! Data
+        return returnedKey 
         
     }
     
     //MARK: cleaning the key storer:
     func clean()
     {
+        print("\nCDManipulator message: clean() being called\n")
         
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         var fetchedKeys: [StoredKey] = []
