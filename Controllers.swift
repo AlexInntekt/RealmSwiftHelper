@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import RealmSwift
+import CoreData
 
 let realm = try! Realm()
 var cards: Results<Card> = { realm.objects(Card.self) }()
