@@ -2,10 +2,13 @@
 //  Controllers.swift
 //  k
 //
+//
+//  Controllers.swift
+//  k
+//
 //  Created by Manolescu Mihai Alexandru on 20/11/2017.
 //  Copyright © 2017 Manolescu Mihai Alexandru. All rights reserved.
 //
-
 import Foundation
 import UIKit
 import RealmSwift
@@ -24,11 +27,11 @@ class Card: Object
 //ACCESS MODIFIERS:
 func write()
 {
-    try! realm.write()
+    try! realm.write(name: String, text: String)
     {
         let newCard = Card()
-        newCard.name = "fourth card!"
-        newCard.text = "eh niahna! nu kha pihk aktay!"
+        newCard.name = name
+        newCard.text = text
         
         realm.add(newCard)
     }
@@ -67,7 +70,3 @@ func deleteObject(with index: Int)
     
     
 }
-
-
-
-
